@@ -1,0 +1,18 @@
+.cell-wrap {
+  white-space: normal;
+  word-break: break-word;
+  max-width: 260px;
+}
+
+.empty-state {
+  border: 1px dashed rgba(0,0,0,.15);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  background: rgba(255,255,255,.6);
+}
+
+.info-card {
+  background: linear-gradient(180deg, rgba(13,110,253,.08), rgba(13,110,253,.02));
+  border-radius: 16px;
+}
