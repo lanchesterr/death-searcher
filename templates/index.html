@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}Wyszukiwarka zgonów{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-1">Wyszukiwarka</h1>
+        <p class="text-muted mb-4">Wpisz imię i nazwisko (może być fragment). Wyniki są niewrażliwe na wielkość liter.</p>
+
+        <form method="post" action="/search" class="needs-validation" novalidate>
+          <label class="form-label fw-semibold">Imię i nazwisko</label>
+          <div class="input-group input-group-lg">
+            <input
+              type="text"
+              class="form-control"
+              name="imie_nazwisko"
+              placeholder="np. Józefa Bubelnik"
+              value="{{ query }}"
+              required
+              autofocus
+            />
+            <button class="btn btn-primary" type="submit">Szukaj</button>
+          </div>
+          <div class="invalid-feedback">To pole jest wymagane.</div>
+
+          <div class="d-flex gap-2 mt-3">
+            <a class="btn btn-outline-secondary" href="/">Wyczyść</a>
+          </div>
+        </form>
+
+        {% if results is not none %}
+          <hr class="my-4">
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted">Wyniki</span>
+            <span class="badge text-bg-dark">{{ results|length }}</span>
+          </div>
+
+          {% if results|length == 0 %}
+            <div class="alert alert-warning mt-3 mb-0">
+              Brak wyników dla: <strong>{{ query }}</strong>
+            </div>
+          {% else %}
+            <div class="alert alert-success mt-3 mb-0">
+              Znaleziono rekordów: <strong>{{ results|length }}</strong>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card border-0 mt-4 info-card">
+      <div class="card-body p-4">
+        <div class="fw-semibold mb-2">Wskazówka</div>
+        <div class="text-muted small">
+          Jeśli chcesz wyszukiwać „dokładnie” (bez fragmentów), zmienimy warunek z <code>ILIKE '%...%'</code> na <code>ILIKE '...'</code>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-0">
+        <div class="p-4 border-bottom">
+          <div class="d-flex align-items-center justify-content-between">
+            <h2 class="h5 mb-0">Rekordy</h2>
+            <div class="text-muted small">
+              {% if results is none %}Wykonaj wyszukiwanie.{% else %}Wyświetlam: {{ results|length }}{% endif %}
+            </div>
+          </div>
+        </div>
+
+        {% if results %}
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="text-nowrap">ID</th>
+                  <th class="text-nowrap">Imię i nazwisko</th>
+                  <th>Urodzenie</th>
+                  <th>Zgon</th>
+                  <th>Dodatkowe</th>
+                  <th class="text-nowrap">Źródło</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for r in results %}
+                <tr>
+                  <td class="text-muted">{{ r.id }}</td>
+                  <td class="fw-semibold">{{ r.imie_nazwisko }}</td>
+                  <td class="cell-wrap">{{ r.data_miejsce_urodzenia or "" }}</td>
+                  <td class="cell-wrap">{{ r.data_przyczyna_zgonu or "" }}</td>
+                  <td class="cell-wrap">{{ r.dodatkowe_informacje or "" }}</td>
+                  <td class="text-muted">{{ r.source_file or "" }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="p-4">
+            <div class="empty-state">
+              <div class="display-6 mb-2">🔎</div>
+              <div class="fw-semibold">Brak danych do wyświetlenia</div>
+              <div class="text-muted">Wpisz imię i nazwisko i kliknij „Szukaj”.</div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const forms = document.querySelectorAll('.needs-validation');
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  });
+})();
+</script>
+{% endblock %}
