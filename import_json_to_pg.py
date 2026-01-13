@@ -9,6 +9,27 @@ from psycopg import errors
 JSON_PATH = Path("wynik.json")  # plik w tym samym folderze co skrypt
 
 
+def get_dsn() -> str:
+    """
+    Zwraca DSN do PostgreSQL (Neon lub lokalnie) z wymuszonym sslmode=require,
+    jeśli nie jest ustawione.
+    """
+    dsn = os.getenv("PG_DSN")
+    if not dsn:
+        raise RuntimeError(
+            "Brak zmiennej PG_DSN.\n"
+            "Ustaw ją na connection string z Neona, np.:\n"
+            "postgresql://USER:PASS@ep-xxxx.eu-central-1.aws.neon.tech:5432/neondb?sslmode=require"
+        )
+
+    # jeśli ktoś podał DSN bez sslmode, dodajemy sslmode=require
+    if "sslmode=" not in dsn:
+        sep = "&" if "?" in dsn else "?"
+        dsn = dsn + f"{sep}sslmode=require"
+
+    return dsn
+
+
 def mask_dsn(dsn: str) -> str:
     """
     Maskuje hasło w DSN typu postgresql://user:pass@host:port/db
@@ -29,7 +50,7 @@ def mask_dsn(dsn: str) -> str:
 
 
 def main() -> None:
-    dsn = os.getenv("PG_DSN")
+    dsn = get_dsn()
 
     if not dsn:
         raise RuntimeError(
