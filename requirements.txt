@@ -1,4 +1,5 @@
 flask
 psycopg[binary]
 python-dotenv
+google-genai
 gunicorn
