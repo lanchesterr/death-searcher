@@ -9,12 +9,50 @@ with open("0076-0081.jpg", "rb") as f:
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])  # zamiast wpisywać klucz w kodzie
 
 prompt = (
-    "Przepisz tekst z obrazka po polsku, linijka po linijce dokładnie jak na zdjęciu. "
-    "Następnie podaj listę rekordów. Dla każdego rekordu wypisz: "
-    "imie_nazwisko, data_miejsce_urodzenia, data_przyczyna_zgonu, dodatkowe informacje."
-    "Zwróć WYŁĄCZNIE poprawny JSON zgodny ze schematem." \
-    "JSON ma zawierać te same pola zmiennych w każdym rekordzie. Oczyść tekst z jakichś niedoczytanych" \
-    "wyrazów."
+"""
+Jesteś asystentem OCR i ekstrakcji danych. Odczytaj treść z przesłanego zdjęcia.
+
+Zasady wejścia (ważne):
+Tekst może być ciągły albo w tabeli.
+Jeśli jest tabela: każdy wiersz = osobny rekord (jedna osoba).
+Tekst może być po polsku albo po łacinie (jeśli łacina — przetłumacz na polski przed ekstrakcją).
+Usuń/napraw oczywiste błędy OCR (literówki, urwane słowa, losowe znaki).
+Nie dopisuj faktów — bazuj tylko na tym, co jest na obrazie.
+Tłumacz imiona na język Polski.
+
+Cel:
+Wyodrębnij dla każdej osoby dane w języku polskim:
+imie_nazwisko
+wiek
+miejsce urodzenia
+data_zgonu
+przyczyna_zgonu
+inne_wazne_informacje (podaj wszystko co wiesz)
+
+Braki danych:
+Jeśli pola nie da się znaleźć w tekście, wpisz dokładnie: "brak informacji".
+
+Format wyjścia (krytyczne):
+Zwróć WYŁĄCZNIE poprawny JSON.
+JSON musi być zgodny z poniższym schematem.
+Każdy rekord ma mieć identyczny zestaw pól.
+Bez komentarzy, bez markdown, bez dodatkowego tekstu.
+
+Schemat JSON (dokładnie taki):
+{
+"rekordy": [
+{
+"imie_nazwisko": "",
+"wiek": "",
+"miejsce urodzenia": "",
+"data_zgonu": "",
+"przyczyna_zgonu": "",
+"inne_wazne_informacje": ""
+}
+]
+}
+
+"""
 )
 
 response = client.models.generate_content(
