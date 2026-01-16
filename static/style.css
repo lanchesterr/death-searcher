@@ -1,18 +1,440 @@
+/* ===========================
+   MOTYW: MROCZNA KSIĘGA ZGONÓW
+   =========================== */
+
+/* Tło całej aplikacji – ciemne, lekko “mgielne” */
+body.bg-body-tertiary {
+  background:
+    radial-gradient(circle at 0% 0%, #262633 0, transparent 55%),
+    radial-gradient(circle at 100% 0%, #221b24 0, transparent 55%),
+    radial-gradient(circle at 50% 120%, #120b14 0, #050509 70%);
+  color: #e6e6ea;
+  min-height: 100vh;
+}
+
+/* Ogólne kolory tekstu */
+body,
+.navbar,
+.card,
+.table,
+.text-muted {
+  color: #d7d7df;
+        font-family: "Old Standard TT", serif;
+}
+
+/* Linki */
+a {
+  color: #c76b7a;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e18997;
+  text-decoration: underline;
+}
+
+/* ===========================
+   NAWIGACJA / HEADER / FOOTER
+   =========================== */
+
+.navbar {
+  background: rgba(5, 5, 10, 0.9) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(10px);
+}
+
+.navbar .navbar-brand {
+  color: #f5f5f5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.navbar .text-muted {
+  color: #8b8b96 !important;
+}
+
+footer .text-muted {
+  color: #666673 !important;
+}
+
+/* ===========================
+   KARTY / “KAFELKI”
+   =========================== */
+
+.card {
+  background: radial-gradient(circle at top left, #181820, #0b0b11);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.card-body {
+  color: #e6e6ea;
+}
+
+/* Karta z podpowiedzią – delikatny czerwony gradient */
+.info-card {
+  background: radial-gradient(circle at top, rgba(199, 86, 96, 0.25), rgba(10, 8, 14, 1));
+  border-radius: 18px;
+}
+
+/* ===========================
+   FORMULARZ WYSZUKIWANIA
+   =========================== */
+
+.form-label {
+  color: #f1f1f5;
+}
+
+.input-group-lg > .form-control,
+.form-control {
+  background-color: #101018;
+  border-color: #34374a;
+  color: #f5f5f9;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(199, 107, 122, 0.08);
+}
+
+.input-group-lg > .form-control:focus,
+.form-control:focus {
+  background-color: #11121c;
+  border-color: #c76b7a;
+  color: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(199, 107, 122, 0.9),
+    0 0 18px rgba(199, 107, 122, 0.4);
+}
+
+.form-control::placeholder {
+  color: #6a6a77;
+}
+
+/* Komunikaty walidacji */
+.invalid-feedback {
+  color: #ff9da9;
+}
+
+/* ===========================
+   PRZYCISKI
+   =========================== */
+
+.btn-primary {
+  background: radial-gradient(circle at 30% 0%, #ff8da1, #6c1021);
+  border-color: #7f1c2e;
+  color: #fff;
+  border-radius: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.86rem;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: radial-gradient(circle at 30% 0%, #ffc1cd, #8f1b2f);
+  border-color: #a22339;
+  box-shadow:
+    0 0 0 1px rgba(255, 157, 169, 0.4),
+    0 0 20px rgba(255, 157, 169, 0.5);
+}
+
+.btn-outline-secondary {
+  border-radius: 14px;
+  border-color: #444458;
+  color: #c4c4cf;
+  background-color: transparent;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+  background-color: #181822;
+  border-color: #666678;
+  color: #ffffff;
+}
+
+/* ===========================
+   TABELA WYNIKÓW
+   =========================== */
+
+.table {
+  margin-bottom: 0;
+  color: #e0e0ea;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.table thead.table-light {
+  background: linear-gradient(90deg, #14141d, #1c1216);
+  color: #f0f0f5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.table thead th {
+  border-bottom: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  color: #a7a7b6;
+}
+
+.table tbody tr {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.04);
+  transition: background-color 0.18s ease, transform 0.08s ease;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: rgba(13, 13, 22, 0.7);
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: rgba(9, 9, 16, 0.8);
+}
+
+.table tbody tr:hover {
+  background: radial-gradient(circle at left, rgba(199, 107, 122, 0.18), rgba(10, 10, 18, 0.9));
+  transform: translateY(-1px);
+}
+
+/* Komórki zawijające tekst */
 .cell-wrap {
   white-space: normal;
   word-break: break-word;
   max-width: 260px;
 }
 
-.empty-state {
-  border: 1px dashed rgba(0,0,0,.15);
-  border-radius: 16px;
-  padding: 28px;
-  text-align: center;
-  background: rgba(255,255,255,.6);
+/* Kolumny z “technicznie” wyglądającym tekstem */
+td.text-muted,
+td.text-muted.small {
+  color: #77778a !important;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.8rem;
 }
 
-.info-card {
-  background: linear-gradient(180deg, rgba(13,110,253,.08), rgba(13,110,253,.02));
+/* ===========================
+   STANY / BADGE / ALERTY
+   =========================== */
+
+.badge.text-bg-dark {
+  background-color: #1e1e2b !important;
+  color: #f5f5f9 !important;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Alerty – przerobione na bardziej “mroczne” */
+.alert {
+  border-radius: 14px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.alert-warning {
+  background: rgba(126, 93, 0, 0.25);
+  border-color: rgba(230, 192, 59, 0.5);
+  color: #f5e7b0;
+}
+
+.alert-success {
+  background: rgba(9, 66, 45, 0.4);
+  border-color: rgba(60, 179, 113, 0.6);
+  color: #cdeedb;
+}
+
+/* Pusty stan – jak pusta karta w księdze zgonów */
+.empty-state {
+  border: 1px dashed rgba(199, 107, 122, 0.5);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+  background: radial-gradient(circle at top, rgba(40, 28, 36, 0.9), rgba(5, 5, 9, 0.95));
+  box-shadow:
+    0 16px 30px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.empty-state .display-6 {
+  font-size: 2.6rem;
+  opacity: 0.8;
+}
+
+.empty-state .fw-semibold {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===========================
+   DROBNE SZLIFY
+   =========================== */
+
+hr {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.text-muted {
+  color: #8a8a99 !important;
+}
+
+code {
+  background-color: #141421;
+  color: #f3b4c2;
+  padding: 0.12rem 0.3rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+/* Scrollbar (tylko desktop, w WebKit) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050509;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a3a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a4c;
+}
+
+
+.records-panel {
+  background: radial-gradient(circle at top right, #1c1a23, #09070c);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow:
+    0 22px 45px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.records-header {
+  background: linear-gradient(90deg, rgba(10, 10, 18, 0.95), rgba(28, 18, 24, 0.95));
+}
+
+.records-header h2 {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* lista ma lekki wewnętrzny „scroll”, jak księga kart */
+.records-list {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+/* Pojedyncza karta rekordu */
+.record-card {
+  background: radial-gradient(circle at top left, rgba(199, 107, 122, 0.18), rgba(7, 6, 10, 0.98));
   border-radius: 16px;
+  padding: 16px 18px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    border-color 0.12s ease,
+    background 0.2s ease;
+}
+
+.record-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 180, 195, 0.7);
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 180, 195, 0.4);
+}
+
+/* nagłówek rekordu */
+.record-card-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px 16px;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.record-id {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.8rem;
+  color: #9d9db0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(9, 9, 17, 0.9);
+}
+
+.record-name {
+  font-weight: 600;
+  color: #f5f5fb;
+  font-size: 1rem;
+}
+
+.record-source {
+  color: #7f7f93 !important;
+  font-style: italic;
+}
+
+/* ciało rekordu – 2 kolumny + szerokie pole na dodatkowe info */
+.record-card-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: 8px 18px;
+  font-size: 0.9rem;
+}
+
+.record-field-wide {
+  grid-column: 1 / -1;
+}
+
+.record-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #a9a9ba;
+  margin-bottom: 2px;
+}
+
+.record-value {
+  color: #e1e1eb;
+  line-height: 1.35;
+}
+
+/* na bardzo wąskich ekranach – układ pionowy */
+@media (max-width: 991.98px) {
+  .records-list {
+    max-height: none;
+  }
+
+  .record-card-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.record-thumb {
+  max-width: 140px;
+  max-height: 120px;
+  border-radius: 6px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.record-thumb:hover {
+  opacity: 1;
+}
+
+.record-source a {
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.record-source a:hover {
+  text-decoration: underline;
 }
