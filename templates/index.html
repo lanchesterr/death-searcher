@@ -2,102 +2,161 @@
 {% block title %}Wyszukiwarka zgonów{% endblock %}
 
 {% block content %}
-<div class="row g-4">
+<div class="row g-4 align-items-start">
+  <!-- LEWA KOLUMNA: WYSZUKIWARKA + INFORMACJA -->
   <div class="col-lg-5">
     <div class="card shadow-sm border-0">
       <div class="card-body p-4">
         <h1 class="h4 mb-1">Wyszukiwarka</h1>
-        <p class="text-muted mb-4">Wpisz imię i nazwisko (może być fragment). Wyniki są niewrażliwe na wielkość liter.</p>
+        <p class="text-muted mb-4">
+          Wpisz imię i nazwisko (może być fragment). Wyniki są niewrażliwe na wielkość liter.
+        </p>
 
         <form method="post" action="/search" class="needs-validation" novalidate>
           <label class="form-label fw-semibold">Imię i nazwisko</label>
           <div class="input-group input-group-lg">
             <input
               type="text"
+              name="query"
               class="form-control"
-              name="imie_nazwisko"
               placeholder="np. Józefa Bubelnik"
-              value="{{ query }}"
-              required
-              autofocus
-            />
+              value="{{ query or '' }}"
+            >
             <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
-          <div class="invalid-feedback">To pole jest wymagane.</div>
 
-          <div class="d-flex gap-2 mt-3">
-            <a class="btn btn-outline-secondary" href="/">Wyczyść</a>
+
+            <!-- NOWE POLE: PARAFIA -->
+  <label class="form-label fw-semibold mt-3">Parafia</label>
+  <select name="parafia" class="form-select">
+    <option value="">Wybierz wszystkie parafie</option>
+    {% for p in parishes %}
+      <option value="{{ p }}" {% if selected_parafia == p %}selected{% endif %}>
+        {{ p }}
+      </option>
+    {% endfor %}
+  </select>
+
+          <div class="invalid-feedback">
+            Podaj przynajmniej jedno imię lub nazwisko.
           </div>
         </form>
 
-        {% if results is not none %}
-          <hr class="my-4">
-          <div class="d-flex align-items-center justify-content-between">
-            <span class="text-muted">Wyniki</span>
-            <span class="badge text-bg-dark">{{ results|length }}</span>
+        <div class="mt-4">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold">Wyniki</span>
+            {% if results is not none %}
+              <span class="badge text-bg-dark rounded-pill">{{ results|length }}</span>
+            {% endif %}
           </div>
 
-          {% if results|length == 0 %}
-            <div class="alert alert-warning mt-3 mb-0">
-              Brak wyników dla: <strong>{{ query }}</strong>
-            </div>
-          {% else %}
-            <div class="alert alert-success mt-3 mb-0">
-              Znaleziono rekordów: <strong>{{ results|length }}</strong>
-            </div>
+          {% if results is not none %}
+            {% if results|length == 0 %}
+              <div class="alert alert-warning mt-2 mb-0">
+                Brak wyników dla: <strong>{{ query }}</strong>
+              </div>
+            {% else %}
+              <div class="alert alert-success mt-2 mb-0">
+                Znaleziono rekordów: <strong>{{ results|length }}</strong>
+              </div>
+            {% endif %}
           {% endif %}
-        {% endif %}
+        </div>
       </div>
     </div>
 
     <div class="card border-0 mt-4 info-card">
       <div class="card-body p-4">
-        <div class="fw-semibold mb-2">Wskazówka</div>
+        <div class="fw-semibold mb-2">Informacja</div>
         <div class="text-muted small">
-          Jeśli chcesz wyszukiwać „dokładnie” (bez fragmentów), zmienimy warunek z <code>ILIKE '%...%'</code> na <code>ILIKE '...'</code>.
+          Dane pochodzą z akt parafialnych, protokołów zgonów oraz rejestrów ludności.
+          Wpisy mogą posiadać braki, nadpisy lub skróty właściwe dla epoki.
         </div>
       </div>
     </div>
   </div>
 
+  <!-- PRAWA KOLUMNA: REKORDY -->
   <div class="col-lg-7">
-    <div class="card shadow-sm border-0">
+    <div class="card shadow-sm border-0 records-panel">
       <div class="card-body p-0">
-        <div class="p-4 border-bottom">
+        <div class="records-header p-4 border-bottom">
           <div class="d-flex align-items-center justify-content-between">
-            <h2 class="h5 mb-0">Rekordy</h2>
+            <h2 class="h5 mb-0">REKORDY</h2>
             <div class="text-muted small">
-              {% if results is none %}Wykonaj wyszukiwanie.{% else %}Wyświetlam: {{ results|length }}{% endif %}
+              {% if results is none %}
+                Wykonaj wyszukiwanie.
+              {% else %}
+                Wyświetlam: {{ results|length }}
+              {% endif %}
             </div>
           </div>
         </div>
 
         {% if results %}
-          <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th class="text-nowrap">ID</th>
-                  <th class="text-nowrap">Imię i nazwisko</th>
-                  <th>Urodzenie</th>
-                  <th>Zgon</th>
-                  <th>Dodatkowe</th>
-                  <th class="text-nowrap">Źródło</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for r in results %}
-                <tr>
-                  <td class="text-muted">{{ r.id }}</td>
-                  <td class="fw-semibold">{{ r.imie_nazwisko }}</td>
-                  <td class="cell-wrap">{{ r.data_miejsce_urodzenia or "" }}</td>
-                  <td class="cell-wrap">{{ r.data_przyczyna_zgonu or "" }}</td>
-                  <td class="cell-wrap">{{ r.dodatkowe_informacje or "" }}</td>
-                  <td class="text-muted">{{ r.source_file or "" }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+          <div class="records-list p-3">
+            {% for r in results %}
+            <article class="record-card mb-3">
+                <header class="record-card-header">
+                  <div class="record-id">#{{ r.id }}</div>
+                  <div class="record-name">{{ r.imie_nazwisko }}</div>
+
+                  {% if r.image_url %}
+                    <div class="record-source small">
+                      <a href="{{ r.image_url }}" target="_blank" class="text-muted">
+                        Zobacz skan
+                      </a>
+                    </div>
+                  {% endif %}
+                </header>
+
+
+             <div class="record-card-body">
+  <div class="record-field">
+    <div class="record-label">WIEK</div>
+    <div class="record-value">
+      {{ r.wiek or "brak danych" }}
+    </div>
+  </div>
+
+  <div class="record-field">
+    <div class="record-label">MIEJSCE URODZENIA</div>
+    <div class="record-value">
+      {{ r.miejsce_urodzenia or "brak informacji" }}
+    </div>
+  </div>
+
+  <div class="record-field">
+    <div class="record-label">PARAFIA</div>
+    <div class="record-value">
+      {{ r.parafia or "brak informacji" }}
+    </div>
+  </div>
+
+  <div class="record-field">
+    <div class="record-label">DATA ZGONU</div>
+    <div class="record-value">
+      {{ r.data_zgonu or "brak danych" }}
+    </div>
+  </div>
+
+  <div class="record-field">
+    <div class="record-label">PRZYCZYNA ZGONU</div>
+    <div class="record-value">
+      {{ r.przyczyna_zgonu or "brak danych" }}
+    </div>
+  </div>
+
+  <div class="record-field record-field-wide">
+    <div class="record-label">INNE WAŻNE INFORMACJE</div>
+    <div class="record-value">
+      {{ r.inne_wazne_informacje or "—" }}
+    </div>
+  </div>
+</div>
+
+            </article>
+            {% endfor %}
           </div>
         {% else %}
           <div class="p-4">
