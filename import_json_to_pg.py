@@ -158,7 +158,6 @@ def main():
                 cur.executemany(insert_sql, data)
             conn.commit()
     except Exception as e:
-        # Ładniejszy komunikat z zamaskowanym DSN
         raise RuntimeError(
             "Nie udało się wykonać importu. Najczęściej to:\n"
             "- terminal/VS Code nie widzi nowego PG_DSN (otwórz ponownie),\n"
