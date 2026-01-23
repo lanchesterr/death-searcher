@@ -438,3 +438,86 @@ code {
 .record-source a:hover {
   text-decoration: underline;
 }
+
+.hl {
+  background: rgba(0, 238, 255, 0.486);
+  border-bottom: 1px solid rgba(255, 157, 169, 0.7);
+  padding: 3px;
+  border-radius: 4px;
+}
+
+/* ===========================
+   AKORDEON + SELECT (DARK)
+   =========================== */
+
+/* Akordeon pod motyw */
+#advAccordion .accordion-item{
+  background: radial-gradient(circle at top left, #181820, #0b0b11);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+#advAccordion .accordion-button{
+  background: rgba(16, 16, 24, 0.85);
+  color: #f1f1f5;
+  border: 0;
+  border-radius: 0;
+  letter-spacing: 0.04em;
+}
+
+#advAccordion .accordion-button:not(.collapsed){
+  background: rgba(12, 12, 18, 0.95);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+#advAccordion .accordion-button:focus{
+  box-shadow:
+    0 0 0 1px rgba(199, 107, 122, 0.9),
+    0 0 18px rgba(199, 107, 122, 0.35);
+}
+
+#advAccordion .accordion-button::after{
+  filter: invert(1) opacity(.85);
+}
+
+#advAccordion .accordion-body{
+  background: rgba(10, 10, 16, 0.92);
+  color: #e6e6ea;
+}
+
+/* Select w ciemnym stylu – sortowanie + parafia */
+.form-select.form-select-dark{
+  background-color: #101018;
+  border-color: #34374a;
+  color: #f5f5f9;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(199, 107, 122, 0.08);
+
+  /* Bootstrap arrow (svg) – rozjaśniamy strzałkę */
+  filter: none;
+}
+
+.form-select.form-select-dark:focus{
+  background-color: #11121c;
+  border-color: #c76b7a;
+  color: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(199, 107, 122, 0.9),
+    0 0 18px rgba(199, 107, 122, 0.4);
+}
+
+/* opcje w dropdownie (żeby nie było białej listy) */
+.form-select.form-select-dark option{
+  background: #0b0b11;
+  color: #f5f5f9;
+}
+
+/* Ujednolicenie muted tekstu w akordeonie */
+#advAccordion .text-muted{
+  color: #8a8a99 !important;
+}

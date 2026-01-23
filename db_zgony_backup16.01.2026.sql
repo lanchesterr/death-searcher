@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-\restrict eHLu3Xta5ij11A9xTRJZkHIPjOuia5gC9EBUoxIlyhgZKp0xnUXM2K3j6d3OrOE
-
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
@@ -187,5 +185,4 @@ ALTER TABLE ONLY public.zgony
 -- PostgreSQL database dump complete
 --
 
-\unrestrict eHLu3Xta5ij11A9xTRJZkHIPjOuia5gC9EBUoxIlyhgZKp0xnUXM2K3j6d3OrOE
 
