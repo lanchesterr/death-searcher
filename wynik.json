@@ -1,38 +1,52 @@
-[
-  {
-    "imie_nazwisko": "Józefa Bubelnik",
-    "data_miejsce_urodzenia": "brak danych",
-    "data_przyczyna_zgonu": "Data zgonu: 26 stycznia 1876, 12:00 w nocy. Miejsce zgonu: Warszawa, przy ulicy Kruczej 1707. Przyczyna zgonu: brak danych.",
-    "dodatkowe_informacje": "Wiek: 84 lata. Rodzice: Lebn i Maryjanna z domu Butsch. Stan cywilny: wdowa po Józefie Bubelniku (robotniku). Informatorzy: Bolesław Grybowski (handlarz, lat 45) i Karol Skolarczyk (handlarz, lat 40), obaj zamieszkali w Warszawie."
-  },
-  {
-    "imie_nazwisko": "Teodor Kłodkiewicz",
-    "data_miejsce_urodzenia": "brak danych",
-    "data_przyczyna_zgonu": "Data zgonu: 26 stycznia 1876, 10:00 rano. Miejsce zgonu: Warszawa, przy ulicy Marszałkowskiej 1712. Przyczyna zgonu: brak danych.",
-    "dodatkowe_informacje": "Wiek: 82 lata. Rodzice: Krauz i Agnieszka. Stan cywilny: żonaty. Informatorzy: Bolesław Grybowski (handlarz, lat 45) i Karol Skolarczyk (handlarz, lat 40), obaj zamieszkali w Warszawie."
-  },
-  {
-    "imie_nazwisko": "Katarzyna Rublewska",
-    "data_miejsce_urodzenia": "brak danych",
-    "data_przyczyna_zgonu": "Data zgonu: 26 stycznia 1876, 10:00 rano. Miejsce zgonu: Warszawa, przy ulicy Zgoda 1621. Przyczyna zgonu: brak danych.",
-    "dodatkowe_informacje": "Wiek: 61 lat. Rodzice: Jan i Marcjanna z Błażewiczów. Stan cywilny: wdowa po Józefie Rublewskim. Informatorzy: Bolesław Grybowski (handlarz, lat 45) i Karol Skolarczyk (handlarz, lat 40), obaj zamieszkali w Warszawie."
-  },
-  {
-    "imie_nazwisko": "Ksawera Jaworska",
-    "data_miejsce_urodzenia": "brak danych",
-    "data_przyczyna_zgonu": "Data zgonu: 26 stycznia 1876, 12:00 w nocy. Miejsce zgonu: Warszawa, przy ulicy Kruczej 1707. Przyczyna zgonu: brak danych.",
-    "dodatkowe_informacje": "Wiek: 60 lat. Rodzice: Feliks i Franciszka z Czerwińskich. Stan cywilny: panna. Informatorzy: Bolesław Grybowski (handlarz, lat 45) i Karol Skolarczyk (handlarz, lat 40), obaj zamieszkali w Warszawie."
-  },
-  {
-    "imie_nazwisko": "Maryjanna Dobrzelowska",
-    "data_miejsce_urodzenia": "brak danych",
-    "data_przyczyna_zgonu": "Data zgonu: 26 stycznia 1876, 12:00 w południe. Miejsce zgonu: Warszawa, w szpitalu Ducha Świętego. Przyczyna zgonu: brak danych.",
-    "dodatkowe_informacje": "Wiek: 23 lata. Rodzice: Kacper i Zofia Dobrzelowscy. Stan cywilny: panna. Informatorzy: Bolesław Grybowski (handlarz, lat 45) i Karol Skolarczyk (handlarz, lat 40), obaj zamieszkali w Warszawie."
-  },
-  {
-    "imie_nazwisko": "Antoni Kruszyński",
-    "data_miejsce_urodzenia": "brak danych",
-    "data_przyczyna_zgonu": "Data zgonu: 27 stycznia 1876, 12:00 w południe. Miejsce zgonu: Warszawa, przy ulicy Długiej 1157. Przyczyna zgonu: brak danych.",
-    "dodatkowe_informacje": "Wiek: 70 lat. Rodzice: Dyonizy i Maryanna z Kulwasów. Stan cywilny: żonaty. Informatorzy: Bolesław Grybowski (handlarz, lat 45) i Antoni Niewolski (handlarz, lat 50), obaj zamieszkali w Warszawie."
-  }
-]
+{
+  "rekordy": [
+    {
+      "imie_nazwisko": "Walenty Pustelnik",
+      "wiek": "72",
+      "miejsce urodzenia": "brak informacji",
+      "data_zgonu": "26 sierpnia 1876",
+      "przyczyna_zgonu": "brak informacji",
+      "inne_wazne_informacje": "żonaty, syn Łukasza i Maryjanny Pustelników (rolników), zamieszkały w Międzylesiu z domu Guta."
+    },
+    {
+      "imie_nazwisko": "Tekla Chłodkowska",
+      "wiek": "47",
+      "miejsce urodzenia": "Warszawa",
+      "data_zgonu": "26 sierpnia 1876",
+      "przyczyna_zgonu": "brak informacji",
+      "inne_wazne_informacje": "wdowa, córka Jana i Konstancji Chłodkowskich, zamieszkała w Warszawie przy ulicy Królewskiej pod numerem 1180."
+    },
+    {
+      "imie_nazwisko": "Józefa Bielińska",
+      "wiek": "58",
+      "miejsce urodzenia": "Rogowiec",
+      "data_zgonu": "26 sierpnia 1876",
+      "przyczyna_zgonu": "brak informacji",
+      "inne_wazne_informacje": "wdowa, córka Ignacego i Tekli Pisarzyńskich, zamieszkała w Warszawie przy ulicy Marszałkowskiej pod numerem 1821."
+    },
+    {
+      "imie_nazwisko": "Klara Jaworska",
+      "wiek": "27",
+      "miejsce urodzenia": "folwark Krasne",
+      "data_zgonu": "26 sierpnia 1876",
+      "przyczyna_zgonu": "brak informacji",
+      "inne_wazne_informacje": "panna, córka Stanisława i Florentyny Koryckich, zamieszkała w folwarku Krasne."
+    },
+    {
+      "imie_nazwisko": "Anna Dobrowolska",
+      "wiek": "58",
+      "miejsce urodzenia": "Warszawa",
+      "data_zgonu": "26 sierpnia 1876",
+      "przyczyna_zgonu": "brak informacji",
+      "inne_wazne_informacje": "wdowa, córka Józefa i Rozalii Dobrowolskich, zamieszkała w Warszawie."
+    },
+    {
+      "imie_nazwisko": "Władysław Wróblewski",
+      "wiek": "23",
+      "miejsce urodzenia": "Warszawa",
+      "data_zgonu": "26 sierpnia 1876",
+      "przyczyna_zgonu": "brak informacji",
+      "inne_wazne_informacje": "kawaler, syn Stanisława i Marianny Wróblewskich, zamieszkały w Warszawie."
+    }
+  ]
+}

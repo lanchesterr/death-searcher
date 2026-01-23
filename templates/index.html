@@ -12,7 +12,7 @@
           Wpisz imię i nazwisko (może być fragment). Wyniki są niewrażliwe na wielkość liter.
         </p>
 
-        <form method="post" action="/search" class="needs-validation" novalidate>
+        <form id="searchForm" method="post" action="/search" class="needs-validation" novalidate>
           <label class="form-label fw-semibold">Imię i nazwisko</label>
           <div class="input-group input-group-lg">
             <input
@@ -24,11 +24,73 @@
             >
             <button class="btn btn-primary" type="submit">Szukaj</button>
           </div>
+          
+          <div class="accordion mt-3" id="advAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="advHeading">
+                <button class="accordion-button {% if not (year_from or year_to or age_from or age_to or sort_by) %}collapsed{% endif %}"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#advCollapse"
+                        aria-expanded="{% if year_from or year_to or age_from or age_to or sort_by %}true{% else %}false{% endif %}"
+                        aria-controls="advCollapse">
+                  Dodatkowe opcje
+                </button>
+              </h2>
 
+              <div id="advCollapse"
+                    class="accordion-collapse collapse {% if year_from or year_to or age_from or age_to or sort_by %}show{% endif %}"
+                    aria-labelledby="advHeading" data-bs-parent="#advAccordion">
+                <div class="accordion-body">
+
+                  <!-- ROK ZGONU -->
+                  <div class="fw-semibold small mb-1">Rok zgonu</div>
+                  <div class="d-flex gap-2">
+                    <input type="number" name="year_from" class="form-control"
+                          placeholder="od (np. 1900)" min="1500" max="2100"
+                          value="{{ year_from or '' }}">
+                    <input type="number" name="year_to" class="form-control"
+                          placeholder="do (np. 1905)" min="1500" max="2100"
+                          value="{{ year_to or '' }}">
+                  </div>
+                  <div class="text-muted small mt-1">Możesz wpisać tylko jedno pole (pojedynczy rok).</div>
+
+                  <!-- WIEK -->
+                  <div class="fw-semibold small mt-3 mb-1">Wiek (lata)</div>
+                  <div class="d-flex gap-2">
+                    <input type="number" name="age_from" class="form-control"
+                          placeholder="od (np. 20)" min="0" max="130"
+                          value="{{ age_from or '' }}">
+                    <input type="number" name="age_to" class="form-control"
+                          placeholder="do (np. 40)" min="0" max="130"
+                          value="{{ age_to or '' }}">
+                  </div>
+                  <div class="text-muted small mt-1">0 oznacza &lt; 1 rok.</div>
+
+                  <!-- SORTOWANIE -->
+                  <div class="fw-semibold small mt-3 mb-1">Sortuj według</div>
+                  <div class="d-flex gap-2">
+                    <select name="sort_by" class="form-select form-select-dark">
+                      <option value="" {% if not sort_by %}selected{% endif %}>Domyślnie (ID)</option>
+                      <option value="name" {% if sort_by=='name' %}selected{% endif %}>Nazwisko / imię</option>
+                      <option value="year" {% if sort_by=='year' %}selected{% endif %}>Rok zgonu</option>
+                      <option value="age"  {% if sort_by=='age' %}selected{% endif %}>Wiek (lata)</option>
+                    </select>
+
+                    <select name="sort_dir" class="form-select form-select-dark" style="max-width: 180px;">
+                      <option value="asc"  {% if sort_dir=='asc' %}selected{% endif %}>Rosnąco</option>
+                      <option value="desc" {% if sort_dir=='desc' %}selected{% endif %}>Malejąco</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
 
             <!-- NOWE POLE: PARAFIA -->
   <label class="form-label fw-semibold mt-3">Parafia</label>
-  <select name="parafia" class="form-select">
+  <select id="parafiaSelect" name="parafia" class="form-select form-select-dark">
     <option value="">Wybierz wszystkie parafie</option>
     {% for p in parishes %}
       <option value="{{ p }}" {% if selected_parafia == p %}selected{% endif %}>
@@ -85,7 +147,7 @@
             <h2 class="h5 mb-0">REKORDY</h2>
             <div class="text-muted small">
               {% if results is none %}
-                Wykonaj wyszukiwanie.
+                Wybierz parafię lub wpisz frazę.
               {% else %}
                 Wyświetlam: {{ results|length }}
               {% endif %}
@@ -99,7 +161,7 @@
             <article class="record-card mb-3">
                 <header class="record-card-header">
                   <div class="record-id">#{{ r.id }}</div>
-                  <div class="record-name">{{ r.imie_nazwisko }}</div>
+                  <div class="record-name">{{ r.imie_nazwisko_hl | safe }}</div>
 
                   {% if r.image_url %}
                     <div class="record-source small">
@@ -171,6 +233,28 @@
     </div>
   </div>
 </div>
+
+<script>
+  const form = document.getElementById('searchForm');
+  const parishSelect = document.getElementById('parafiaSelect');
+
+  parishSelect?.addEventListener('change', () => {
+    const selected = parishSelect.value;
+
+    // Jeśli wracam na "Wybierz wszystkie parafie" -> chcemy pusty stan,
+    // więc czyścimy query i wysyłamy formularz (backend zwróci results=None)
+    if (!selected) {
+      form.query.value = '';
+      if (form.year_from) form.year_from.value = '';
+      if (form.year_to) form.year_to.value = '';
+      if (form.age_from) form.age_from.value = '';
+      if (form.age_to) form.age_to.value = '';
+      if (form.sort_by) form.sort_by.value = '';
+      if (form.sort_dir) form.sort_dir.value = 'asc';
+    }
+    form.submit();
+  });
+</script>
 
 <script>
 (() => {
