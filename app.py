@@ -6,7 +6,7 @@ from google.genai import types
 with open("0076-0081.jpg", "rb") as f:
     image_bytes = f.read()
 
-client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])  # zamiast wpisywać klucz w kodzie
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"]) 
 
 prompt = (
 """
@@ -63,11 +63,10 @@ response = client.models.generate_content(
     ],
     config={
         "response_mime_type": "application/json",
-        # opcjonalnie: możesz dodać response_schema (Pydantic/Enum) dla większej kontroli
     },
 )
 
-# response.text powinien być JSON-em
+
 data = json.loads(response.text)
 
 with open("wynik.json", "w", encoding="utf-8") as f:
