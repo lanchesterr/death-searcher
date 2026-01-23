@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Mapa parafii{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-2">Mapa parafii</h1>
+        <p class="text-muted mb-3">
+          Każdy znacznik reprezentuje parafię, a liczba w dymku – liczbę aktów zgonu w bazie.
+        </p>
+
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Inicjalizacja mapy
+  const map = L.map('map').setView([52.0, 19.0], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  // 2. Dane z backendu – jako string + JSON.parse (uspokaja VS Code)
+  const parishes = JSON.parse('{{ parishes | tojson | safe }}');
+
+  console.log('parishes z backendu:', parishes);
+
+  // 3. Markery
+  parishes.forEach(p => {
+    const marker = L.marker([p.lat, p.lng]).addTo(map);
+    marker.bindPopup(
+  `<strong>${p.parafia}</strong><br>` +
+  `Akty zgonu: ${p.count}<br>` +
+  `<a href="/search?parafia=${encodeURIComponent(p.parafia)}">Pokaż akta</a>`
+);
+  });
+});
+</script>
+{% endblock %}
