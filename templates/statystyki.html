@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Statystyki zgonów{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-3">Statystyki zgonów</h1>
+        <p class="text-muted mb-4">
+          Przegląd podstawowych statystyk na podstawie aktualnej bazy:
+          liczba zgonów w czasie, najczęstsze przyczyny śmierci oraz rozkład wieku.
+        </p>
+
+        <!-- Niewidoczny element z danymi z backendu -->
+        <div id="stats-data"
+             data-by-year-labels='{{ by_year | map(attribute="rok") | list | tojson }}'
+             data-by-year-counts='{{ by_year | map(attribute="liczba") | list | tojson }}'
+             data-top-causes-labels='{{ top_causes | map(attribute="przyczyna_zgonu") | list | tojson }}'
+             data-top-causes-counts='{{ top_causes | map(attribute="liczba") | list | tojson }}'
+             data-age-labels='{{ age_hist | map(attribute="lata") | list | tojson }}'
+             data-age-counts='{{ age_hist | map(attribute="liczba") | list | tojson }}'>
+        </div>
+
+        <!-- Wykres: zgony wg roku -->
+        <h2 class="h6 mt-3 mb-2">Liczba zgonów w czasie (rocznie)</h2>
+        <canvas id="deathsByYearChart" height="80"></canvas>
+
+        <!-- Wykres: TOP 5 przyczyn -->
+        <h2 class="h6 mt-4 mb-2">TOP 5 przyczyn zgonu</h2>
+        <canvas id="topCausesChart" height="80"></canvas>
+
+        <!-- Wykres: rozkład wieku -->
+        <h2 class="h6 mt-4 mb-2">Rozkład wieku przy zgonie (lata)</h2>
+        <canvas id="ageHistChart" height="80"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Pobranie danych z atrybutów data-*
+  const statsEl = document.getElementById('stats-data');
+
+  const byYearLabels = JSON.parse(statsEl.dataset.byYearLabels || '[]');
+  const byYearCounts = JSON.parse(statsEl.dataset.byYearCounts || '[]');
+
+  const topCausesLabels = JSON.parse(statsEl.dataset.topCausesLabels || '[]');
+  const topCausesCounts = JSON.parse(statsEl.dataset.topCausesCounts || '[]');
+
+  const ageLabels = JSON.parse(statsEl.dataset.ageLabels || '[]');
+  const ageCounts = JSON.parse(statsEl.dataset.ageCounts || '[]');
+
+  // 1) Wykres: zgony wg roku
+  new Chart(
+    document.getElementById('deathsByYearChart').getContext('2d'),
+    {
+      type: 'line',
+      data: {
+        labels: byYearLabels,
+        datasets: [{
+          label: 'Liczba zgonów',
+          data: byYearCounts,
+          tension: 0.2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { title: { display: true, text: 'Rok' } },
+          y: { title: { display: true, text: 'Liczba zgonów' }, beginAtZero: true }
+        }
+      }
+    }
+  );
+
+  // 2) Wykres: TOP 5 przyczyn
+  new Chart(
+    document.getElementById('topCausesChart').getContext('2d'),
+    {
+      type: 'bar',
+      data: {
+        labels: topCausesLabels,
+        datasets: [{
+          label: 'Liczba zgonów',
+          data: topCausesCounts
+        }]
+      },
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: { beginAtZero: true, title: { display: true, text: 'Liczba zgonów' } },
+          y: { title: { display: true, text: 'Przyczyna' } }
+        }
+      }
+    }
+  );
+
+  // 3) Wykres: rozkład wieku
+  new Chart(
+    document.getElementById('ageHistChart').getContext('2d'),
+    {
+      type: 'bar',
+      data: {
+        labels: ageLabels,
+        datasets: [{
+          label: 'Liczba zgonów',
+          data: ageCounts
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { title: { display: true, text: 'Wiek (lata)' } },
+          y: { beginAtZero: true, title: { display: true, text: 'Liczba zgonów' } }
+        }
+      }
+    }
+  );
+</script>
+{% endblock %}
