@@ -27,11 +27,14 @@ PARISH_COORDS = {
     "Parafia rzymskokatolicka św. Jakuba w Warszawie (Ochota)":(52.21999, 20.98717),
     "Parafia Rzymskokatolicka w Mogile": (50.06468, 20.05334),
     "Okręg Bożniczy w Skierniewicach": (51.95469, 20.14356),
+    "Urząd Stanu Cywilnego Białogórzyno": (54.0048044, 15.9896492),
+    "Parafia Rzymskokatolicka w Opocznie": (51.3856947, 20.2781093),
+    "Parafia rzymskokatolicka w Jeżewie":(53.5102519, 18.494549),
+    "Parafia rzymskokatolicka w Wronczynie": (52.505744, 17.2114643),
     "Urząd Stanu Cywilnego Nowy Tomyśl - obwód wiejski":(52.31583, 16.12910)
     # kolejne parafie dopiszesz w miarę potrzeb
 }
-# ---------- Funkcje pomocnicze ----------
-
+# ---
 
 def get_parishes():
     """Zwraca listę parafii z liczbą aktów i współrzędnymi (dla mapy)."""
@@ -539,6 +542,7 @@ def statystyki():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
