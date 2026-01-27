@@ -26,6 +26,7 @@ PARISH_COORDS = {
     "Parafia rzymskokatolickiej Matki Boskiej Zwycięskiej w Łodzi": (51.75811, 19.44508),
     "Parafia rzymskokatolicka św. Jakuba w Warszawie (Ochota)":(52.21999, 20.98717),
     "Parafia Rzymskokatolicka w Mogile": (50.06468, 20.05334),
+    "Okręg Bożniczy w Skierniewicach": (51.95469, 20.14356),
     "Urząd Stanu Cywilnego Nowy Tomyśl - obwód wiejski":(52.31583, 16.12910)
     # kolejne parafie dopiszesz w miarę potrzeb
 }
@@ -538,6 +539,7 @@ def statystyki():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
