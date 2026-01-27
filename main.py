@@ -24,6 +24,8 @@ PARISH_COORDS = {
     "Parafia Rzymskokatolicka w Sokołowie Małopolskim": (50.22737, 22.11804),
     "Parafia rzymskokatolickiej Albigowa": (50.01461, 22.22941),
     "Parafia rzymskokatolickiej Matki Boskiej Zwycięskiej w Łodzi": (51.75811, 19.44508),
+    "Parafia rzymskokatolicka pw. św. Jakuba Apostoła w Warszawie":(52.21999, 20.98717),
+    "Parafia rzymskokatolicka w Mogile": (50.06468, 20.05334)
     # kolejne parafie dopiszesz w miarę potrzeb
 }
 
