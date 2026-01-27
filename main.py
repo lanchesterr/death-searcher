@@ -25,10 +25,9 @@ PARISH_COORDS = {
     "Parafia rzymskokatolickiej Albigowa": (50.01461, 22.22941),
     "Parafia rzymskokatolickiej Matki Boskiej Zwycięskiej w Łodzi": (51.75811, 19.44508),
     "Parafia rzymskokatolicka św. Jakuba w Warszawie (Ochota)":(52.21999, 20.98717),
-    "Parafia Rzymskokatolicka w Mogile": (50.06468, 20.05334)
+    "Parafia Rzymskokatolicka w Mogile": (50.06468, 20.05334),
     # kolejne parafie dopiszesz w miarę potrzeb
 }
-
 # ---------- Funkcje pomocnicze ----------
 
 
@@ -538,5 +537,6 @@ def statystyki():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
