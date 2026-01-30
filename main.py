@@ -487,12 +487,12 @@ def statystyki():
             cur.execute(
                 """
                 SELECT
-  EXTRACT(YEAR FROM data_zgonu::date)::int AS rok,
-  COUNT(*) AS liczba
-FROM zgony
-WHERE data_zgonu ~ '^\d{4}-\d{2}-\d{2}$'
-GROUP BY rok
-ORDER BY rok;
+                  CAST(SUBSTRING(data_zgonu FROM 1 FOR 4) AS int) AS rok,
+                  COUNT(*) AS liczba
+                FROM zgony
+                WHERE data_zgonu ~ '^\d{4}-\d{2}-\d{2}$'
+                GROUP BY rok
+                ORDER BY rok;
                 """
             )
             by_year = cur.fetchall()
@@ -542,6 +542,7 @@ ORDER BY rok;
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
